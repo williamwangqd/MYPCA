@@ -1,0 +1,207 @@
+/**
+ * 本文件定义 MYPCA 管理中心的全局主题变量。
+ * 具体实现：
+ * 1. 为浅色、纯白和深色模式提供统一的石墨中性色、青绿主操作色与多色状态体系。
+ * 2. 保留旧页面依赖的变量名称，确保所有页面在品牌升级后无需修改业务逻辑即可继承新视觉。
+ * 3. 将卡片、浮层、边框、阴影和弱化文本控制在适合高密度运维界面的清晰层级中。
+ */
+
+// 浅色主题：带轻微冷灰的工作台底色，适合长时间查看数据。
+:root {
+  --bg-secondary: #eef2f5;
+  --bg-primary: #ffffff;
+  --bg-tertiary: #e6ecef;
+  --bg-hover: #dfe8eb;
+  --bg-quinary: #f7f9fa;
+  --bg-error-light: rgb(220 76 70 / 0.1);
+  --floating-surface: #ffffff;
+  --floating-shadow: 0 18px 48px rgb(24 33 40 / 0.16);
+
+  --text-primary: #172027;
+  --text-secondary: #566570;
+  --text-tertiary: #7f8d97;
+  --text-quaternary: #aeb8bf;
+  --text-muted: var(--text-tertiary);
+
+  --border-color: #d4dde2;
+  --border-secondary: var(--border-color);
+  --border-primary: #c2ced5;
+  --border-hover: #9fb1bb;
+
+  --primary-color: #078c7d;
+  --primary-hover: #067c70;
+  --primary-active: #05685f;
+  --primary-contrast: #ffffff;
+
+  --accent-cyan: #078c7d;
+  --accent-blue: #347dcc;
+  --accent-coral: #d94f54;
+  --accent-amber: #c78513;
+  --success-color: #11855f;
+  --quota-medium-color: #c78513;
+  --warning-color: #b46b0a;
+  --error-color: #cf4549;
+  --danger-color: var(--error-color);
+  --info-color: var(--accent-blue);
+
+  --warning-bg: rgb(199 133 19 / 0.11);
+  --warning-border: rgb(199 133 19 / 0.34);
+  --warning-text: #915f09;
+
+  --success-badge-bg: rgb(17 133 95 / 0.1);
+  --success-badge-text: #0c684b;
+  --success-badge-border: rgb(17 133 95 / 0.32);
+
+  --failure-badge-bg: rgb(207 69 73 / 0.1);
+  --failure-badge-text: #a12e34;
+  --failure-badge-border: rgb(207 69 73 / 0.3);
+
+  --count-badge-bg: rgb(52 125 204 / 0.1);
+  --count-badge-text: #2865a6;
+
+  --shadow: 0 10px 28px rgb(24 33 40 / 0.08);
+  --shadow-lg: 0 24px 64px rgb(24 33 40 / 0.18);
+  --radius-md: 8px;
+
+  // 工作台通用状态变量，兼容现有页面的命名。
+  --primary-8: color-mix(in srgb, var(--primary-color) 8%, transparent);
+  --primary-10: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  --primary-30: color-mix(in srgb, var(--primary-color) 30%, transparent);
+  --amber-color: var(--accent-amber);
+  --amber-text: #855707;
+  --amber-10: color-mix(in srgb, var(--amber-color) 10%, transparent);
+  --amber-30: color-mix(in srgb, var(--amber-color) 30%, transparent);
+  --destructive-color: var(--error-color);
+  --destructive-10: color-mix(in srgb, var(--destructive-color) 10%, transparent);
+  --destructive-30: color-mix(in srgb, var(--destructive-color) 30%, transparent);
+  --muted-bg: var(--bg-tertiary);
+  --muted-foreground: var(--text-secondary);
+  --accent-bg: var(--bg-tertiary);
+
+  // 旧页面仍会读取玻璃变量，新设计将其约束为更稳定的实体表面。
+  --glass-blur: 8px;
+  --glass-backdrop-filter: blur(var(--glass-blur));
+  --glass-filter: blur(var(--glass-blur));
+  --glass-bg: color-mix(in srgb, var(--bg-primary) 96%, transparent);
+  --glass-bg-secondary: color-mix(in srgb, var(--bg-secondary) 94%, transparent);
+  --glass-border: var(--border-color);
+  --surface-highlight: rgb(255 255 255 / 0.76);
+  --neon-cyan: #35d6be;
+  --neon-green: #35d6be;
+  --neon-amber: #ffc857;
+  --neon-rose: #ff7a75;
+}
+
+// 纯白主题：提高背景亮度，同时保留足够的表格和卡片分隔度。
+[data-theme='white'] {
+  --bg-secondary: #f7f9fa;
+  --bg-primary: #ffffff;
+  --bg-tertiary: #edf1f3;
+  --bg-hover: #e6ecef;
+  --bg-quinary: #ffffff;
+  --floating-surface: #ffffff;
+  --floating-shadow: 0 16px 42px rgb(24 33 40 / 0.14);
+
+  --text-primary: #162027;
+  --text-secondary: #5a6872;
+  --text-tertiary: #84919a;
+  --text-quaternary: #b3bdc4;
+
+  --border-color: #dce3e7;
+  --border-primary: #cbd5da;
+  --border-hover: #aab9c1;
+
+  --primary-color: #078c7d;
+  --primary-hover: #067c70;
+  --primary-active: #05685f;
+  --primary-contrast: #ffffff;
+
+  --shadow: 0 8px 22px rgb(24 33 40 / 0.07);
+  --shadow-lg: 0 22px 58px rgb(24 33 40 / 0.15);
+  --glass-bg: #ffffff;
+  --glass-bg-secondary: #f7f9fa;
+  --glass-border: var(--border-color);
+}
+
+// 深色主题：以中性石墨为主，四色仅用于操作、状态和信息分组。
+[data-theme='dark'] {
+  --bg-secondary: #090d10;
+  --bg-primary: #11171b;
+  --bg-tertiary: #182126;
+  --bg-hover: #202c32;
+  --bg-quinary: #0d1216;
+  --bg-error-light: rgb(255 122 117 / 0.12);
+  --floating-surface: #151d22;
+  --floating-shadow: 0 24px 66px rgb(0 0 0 / 0.54);
+
+  --text-primary: #f3f7f8;
+  --text-secondary: #b4c0c6;
+  --text-tertiary: #7d8d96;
+  --text-quaternary: #4f6069;
+  --text-muted: var(--text-tertiary);
+
+  --border-color: #28343a;
+  --border-secondary: var(--border-color);
+  --border-primary: #35444c;
+  --border-hover: #52666f;
+
+  --primary-color: #35d6be;
+  --primary-hover: #54e3ce;
+  --primary-active: #83efdf;
+  --primary-contrast: #061310;
+
+  --accent-cyan: #35d6be;
+  --accent-blue: #5ca9ff;
+  --accent-coral: #ff7a75;
+  --accent-amber: #ffc857;
+  --success-color: #49d49f;
+  --quota-medium-color: #ffc857;
+  --warning-color: #ffc857;
+  --error-color: #ff7a75;
+  --danger-color: var(--error-color);
+  --info-color: var(--accent-blue);
+
+  --warning-bg: rgb(255 200 87 / 0.12);
+  --warning-border: rgb(255 200 87 / 0.36);
+  --warning-text: #ffdc91;
+
+  --success-badge-bg: rgb(73 212 159 / 0.12);
+  --success-badge-text: #82e8c0;
+  --success-badge-border: rgb(73 212 159 / 0.34);
+
+  --failure-badge-bg: rgb(255 122 117 / 0.12);
+  --failure-badge-text: #ffaaa6;
+  --failure-badge-border: rgb(255 122 117 / 0.34);
+
+  --count-badge-bg: rgb(92 169 255 / 0.12);
+  --count-badge-text: #91c5ff;
+
+  --shadow: 0 16px 42px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 30px 78px rgb(0 0 0 / 0.58);
+
+  --amber-color: var(--accent-amber);
+  --amber-text: #ffdc91;
+  --amber-10: color-mix(in srgb, var(--amber-color) 12%, transparent);
+  --amber-30: color-mix(in srgb, var(--amber-color) 32%, transparent);
+  --destructive-color: var(--error-color);
+  --destructive-10: color-mix(in srgb, var(--destructive-color) 12%, transparent);
+  --destructive-30: color-mix(in srgb, var(--destructive-color) 32%, transparent);
+
+  --glass-bg: color-mix(in srgb, var(--bg-primary) 96%, transparent);
+  --glass-bg-secondary: color-mix(in srgb, var(--bg-secondary) 94%, transparent);
+  --glass-border: var(--border-color);
+  --surface-highlight: rgb(255 255 255 / 0.06);
+}
+
+// 小屏幕或用户关闭透明效果时，直接使用实体背景以保证性能和文字清晰度。
+@media (max-width: 768px),
+  (prefers-reduced-motion: reduce),
+  (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-backdrop-filter: none;
+    --glass-filter: none;
+    --glass-bg: var(--bg-primary);
+    --glass-bg-secondary: var(--bg-secondary);
+    --glass-border: var(--border-color);
+  }
+}

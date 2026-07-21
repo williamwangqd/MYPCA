@@ -1,0 +1,88 @@
+# 本文件用于说明并集中维护 MYPCA 项目的 Git 忽略规则。
+# 主要忽略构建产物、依赖缓存、运行时日志、备份文件和包含密钥的本地配置，
+# 保留后端源码、前端源码、插件源码、示例配置、文档和界面截图，便于后续开发与协作。
+
+# 操作系统与编辑器文件
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+.git-nested-backup/
+**/.git-nested-backup/
+
+# 本地工具与临时目录
+.tools/
+.cache/
+.tmp/
+tmp/
+temp/
+
+# Node / Bun / 前端缓存
+node_modules/
+.bun/
+.vite/
+*.tsbuildinfo
+Cli-Proxy-API-Management-Center/dist/
+Cli-Proxy-API-Management-Center/.vite/
+Cli-Proxy-API-Management-Center/node_modules/
+
+# Go 构建缓存与覆盖率文件
+*.test
+*.out
+coverage.out
+coverage.html
+
+# 编译后的二进制和动态库
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.o
+
+# 项目构建输出
+build/
+dist/
+
+# 备份与发布临时文件
+backups/
+*.bak
+*.backup
+*.old
+*.previous-*.html
+*.zip
+checksums.txt
+
+# 本地配置与敏感信息
+.env
+.env.*
+!.env.example
+!.env.*.example
+config.yaml
+**/config.yaml
+!**/config.example.yaml
+auths/
+**/auths/
+*.auth.json
+auth.json
+
+# 运行时日志、状态与用量数据
+logs/
+**/logs/
+*.log
+*.jsonl
+cpa-key-usage-state.json
+cpa-key-policy-state.json
+cpa-user-usage-settings.json
+user-usages/
+**/user-usages/
+
+# 插件运行时价格表与本地生成数据
+model_prices.json
+plugins/*/*/*.dll
+plugins/*/*/*.so
+plugins/*/*/*.dylib

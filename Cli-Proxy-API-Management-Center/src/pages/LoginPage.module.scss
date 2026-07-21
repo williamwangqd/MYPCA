@@ -1,0 +1,966 @@
+/**
+ * 本文件定义 MYPCA 登录页的完整视觉结构。
+ * 左侧使用深色网格品牌面板和四色状态轨道，右侧采用紧凑的管理登录工作区，桌面与移动端均保持稳定尺寸。
+ * 自动登录阶段切换为独立全屏启动核心，通过双层轨道、四向信号和分段加载器展示系统初始化状态。
+ */
+@use '../styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(420px, 1.08fr) minmax(480px, 0.92fr);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.brandPanel {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px;
+  background-color: #080b0f;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+  border-right: 1px solid #27323d;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 42%;
+    height: 28%;
+    border-top: 1px solid rgb(53 214 190 / 0.42);
+    border-left: 1px solid rgb(92 169 255 / 0.36);
+    background: rgb(255 255 255 / 0.012);
+    pointer-events: none;
+  }
+}
+
+.brandRail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 0.8fr 1.2fr;
+
+  span:nth-child(1) {
+    background: #35d6be;
+  }
+  span:nth-child(2) {
+    background: #5ca9ff;
+  }
+  span:nth-child(3) {
+    background: #ff7a75;
+  }
+  span:nth-child(4) {
+    background: #ffc857;
+  }
+}
+
+.brandContent {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 650px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brandLogo {
+  width: 94px;
+  height: 94px;
+  margin-bottom: 34px;
+  border-radius: 8px;
+  box-shadow:
+    0 18px 50px rgb(0 0 0 / 0.42),
+    0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+.brandKicker {
+  margin-bottom: 14px;
+  color: #93a5b7;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0;
+}
+
+.brandWord {
+  color: #f5f8fb;
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  animation: brand-enter 0.55s ease-out both;
+}
+
+.brandFooter {
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 18px;
+  border-top: 1px solid #27323d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #738496;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.brandLive {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #35d6be;
+
+  &::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 12px rgb(53 214 190 / 0.7);
+  }
+}
+
+@keyframes brand-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formPanel {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px;
+  background: var(--bg-secondary);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 68px;
+    height: 68px;
+    border-top: 2px solid color-mix(in srgb, var(--neon-amber) 72%, transparent);
+    border-right: 2px solid color-mix(in srgb, var(--neon-rose) 62%, transparent);
+    pointer-events: none;
+  }
+}
+
+.formContent {
+  width: min(100%, 460px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: contain;
+  border: 1px solid color-mix(in srgb, var(--border-hover) 78%, transparent);
+  box-shadow:
+    0 18px 44px rgb(0 0 0 / 0.28),
+    0 0 24px color-mix(in srgb, var(--primary-color) 16%, transparent);
+}
+
+.loginCard {
+  width: 100%;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow:
+    0 24px 70px rgb(0 0 0 / 0.22),
+    inset 0 1px 0 var(--surface-highlight);
+}
+
+.loginHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: 26px;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.languageSelect {
+  min-width: 104px;
+  flex: 0 0 auto;
+}
+
+.connectionBox {
+  position: relative;
+  padding: 14px 16px 14px 19px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    background: var(--primary-color);
+  }
+
+  .label {
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+  .value {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+  .hint {
+    color: var(--text-tertiary);
+    font-size: 11px;
+  }
+}
+
+.toggleAdvanced {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.toggleLabel {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.errorBox {
+  padding: 10px 12px;
+  color: var(--error-color);
+  background: color-mix(in srgb, var(--error-color) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--error-color) 34%, transparent);
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+// ─── 独立全屏启动动画 ─────────────────────────────────
+
+.bootScreen {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 40px;
+  background-color: #060a0d;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 38px 38px;
+  color: #f4f8fa;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.018) 0,
+      rgb(255 255 255 / 0.018) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+    animation: boot-scanlines 8s linear infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 22px;
+    z-index: -1;
+    pointer-events: none;
+    border: 1px solid rgb(255 255 255 / 0.035);
+  }
+}
+
+.bootRail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 0.8fr 1.2fr;
+
+  span:nth-child(1) {
+    background: #35d6be;
+  }
+
+  span:nth-child(2) {
+    background: #5ca9ff;
+  }
+
+  span:nth-child(3) {
+    background: #ff7a75;
+  }
+
+  span:nth-child(4) {
+    background: #ffc857;
+  }
+}
+
+.bootStage {
+  position: relative;
+  width: min(520px, 82vw);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  animation: boot-stage-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.bootCorner {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  border-color: rgb(255 255 255 / 0.2);
+  border-style: solid;
+  animation: boot-corner-pulse 2.4s ease-in-out infinite;
+}
+
+.bootCornerTopLeft {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+  border-color: #35d6be;
+}
+
+.bootCornerTopRight {
+  top: 0;
+  right: 0;
+  border-width: 2px 2px 0 0;
+  border-color: #5ca9ff;
+  animation-delay: 0.25s;
+}
+
+.bootCornerBottomLeft {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 2px 2px;
+  border-color: #ffc857;
+  animation-delay: 0.5s;
+}
+
+.bootCornerBottomRight {
+  right: 0;
+  bottom: 0;
+  border-width: 0 2px 2px 0;
+  border-color: #ff7a75;
+  animation-delay: 0.75s;
+}
+
+.bootAxisHorizontal,
+.bootAxisVertical {
+  position: absolute;
+  z-index: -1;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.bootAxisHorizontal {
+  right: 2%;
+  left: 2%;
+  height: 1px;
+}
+
+.bootAxisVertical {
+  top: 2%;
+  bottom: 2%;
+  width: 1px;
+}
+
+.bootRingOuter,
+.bootRingInner {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  pointer-events: none;
+}
+
+.bootRingOuter {
+  width: 74%;
+  height: 74%;
+  border-top-color: #35d6be;
+  border-right-color: rgb(92 169 255 / 0.7);
+  border-bottom-color: rgb(255 122 117 / 0.22);
+  border-left-color: rgb(255 200 87 / 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.025),
+    0 0 36px rgb(53 214 190 / 0.08);
+  animation: boot-ring-spin 8s linear infinite;
+}
+
+.bootRingInner {
+  width: 61%;
+  height: 61%;
+  border-top-color: rgb(255 200 87 / 0.68);
+  border-right-color: rgb(255 122 117 / 0.24);
+  border-bottom-color: rgb(92 169 255 / 0.62);
+  border-left-color: rgb(53 214 190 / 0.18);
+  animation: boot-ring-spin-reverse 5.5s linear infinite;
+}
+
+.bootSignal {
+  position: absolute;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.08);
+
+  > span {
+    position: absolute;
+    display: block;
+    background: currentColor;
+    box-shadow: 0 0 12px currentColor;
+  }
+}
+
+.bootSignalTop,
+.bootSignalBottom {
+  left: 28%;
+  width: 44%;
+  height: 1px;
+
+  > span {
+    top: 0;
+    width: 54px;
+    height: 1px;
+    animation: boot-signal-horizontal 2.1s ease-in-out infinite;
+  }
+}
+
+.bootSignalTop {
+  top: 13%;
+  color: #35d6be;
+}
+
+.bootSignalBottom {
+  bottom: 13%;
+  color: #ff7a75;
+
+  > span {
+    animation-delay: -1.05s;
+  }
+}
+
+.bootSignalLeft,
+.bootSignalRight {
+  top: 28%;
+  width: 1px;
+  height: 44%;
+
+  > span {
+    left: 0;
+    width: 1px;
+    height: 54px;
+    animation: boot-signal-vertical 2.1s ease-in-out infinite;
+  }
+}
+
+.bootSignalLeft {
+  left: 13%;
+  color: #ffc857;
+}
+
+.bootSignalRight {
+  right: 13%;
+  color: #5ca9ff;
+
+  > span {
+    animation-delay: -1.05s;
+  }
+}
+
+.bootTelemetry {
+  position: absolute;
+  color: #71818b;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.bootTelemetryTopLeft {
+  top: 18px;
+  left: 74px;
+}
+
+.bootTelemetryTopRight {
+  top: 18px;
+  right: 74px;
+}
+
+.bootTelemetryBottomLeft {
+  bottom: 18px;
+  left: 74px;
+}
+
+.bootTelemetryBottomRight {
+  right: 74px;
+  bottom: 18px;
+}
+
+.bootCore {
+  position: relative;
+  width: 244px;
+  min-height: 286px;
+  padding: 28px 26px 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #0d1317;
+  border: 1px solid #2a373e;
+  border-radius: 8px;
+  box-shadow:
+    0 28px 72px rgb(0 0 0 / 0.5),
+    inset 0 1px 0 rgb(255 255 255 / 0.05);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      #35d6be 0 34%,
+      #5ca9ff 34% 58%,
+      #ff7a75 58% 78%,
+      #ffc857 78% 100%
+    );
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgb(255 255 255 / 0.035);
+    pointer-events: none;
+  }
+}
+
+.bootLogoShell {
+  position: relative;
+  width: 94px;
+  height: 94px;
+  margin-bottom: 6px;
+  display: grid;
+  place-items: center;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgb(53 214 190 / 0.26);
+    border-radius: 8px;
+    animation: boot-logo-frame 2s ease-in-out infinite;
+  }
+
+  &::after {
+    inset: -14px;
+    border-color: rgb(92 169 255 / 0.16);
+    animation-delay: -1s;
+  }
+}
+
+.bootLogo {
+  width: 82px;
+  height: 82px;
+  border-radius: 8px;
+  filter: drop-shadow(0 12px 24px rgb(0 0 0 / 0.42));
+  animation: boot-logo-pulse 2s ease-in-out infinite;
+}
+
+.bootTitle {
+  margin: 8px 0 0;
+  color: #f4f8fa;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.bootSubtitle {
+  margin: 0;
+  color: #91a1aa;
+  font-size: 13px;
+}
+
+.bootLoader {
+  width: 164px;
+  height: 5px;
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+
+  span {
+    background: #26343a;
+    animation: boot-loader-segment 1.2s ease-in-out infinite;
+  }
+
+  span:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  span:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+
+  span:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+
+  span:nth-child(5) {
+    animation-delay: 0.4s;
+  }
+
+  span:nth-child(6) {
+    animation-delay: 0.5s;
+  }
+}
+
+.bootStatusLine {
+  min-height: 18px;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #70808a;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.bootStatusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #35d6be;
+  box-shadow: 0 0 10px rgb(53 214 190 / 0.72);
+  animation: boot-status-pulse 1s ease-in-out infinite;
+}
+
+@keyframes boot-stage-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes boot-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes boot-ring-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes boot-corner-pulse {
+  0%,
+  100% {
+    opacity: 0.36;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes boot-signal-horizontal {
+  from {
+    transform: translateX(-58px);
+  }
+
+  to {
+    transform: translateX(236px);
+  }
+}
+
+@keyframes boot-signal-vertical {
+  from {
+    transform: translateY(-58px);
+  }
+
+  to {
+    transform: translateY(236px);
+  }
+}
+
+@keyframes boot-logo-frame {
+  0%,
+  100% {
+    opacity: 0.34;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.82;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes boot-logo-pulse {
+  0%,
+  100% {
+    transform: scale(0.98);
+    filter: drop-shadow(0 12px 24px rgb(0 0 0 / 0.42));
+  }
+
+  50% {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 18px rgb(53 214 190 / 0.2));
+  }
+}
+
+@keyframes boot-loader-segment {
+  0%,
+  100% {
+    background: #26343a;
+    transform: scaleY(0.72);
+  }
+
+  50% {
+    background: #35d6be;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes boot-status-pulse {
+  0%,
+  100% {
+    opacity: 0.38;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes boot-scanlines {
+  to {
+    transform: translateY(28px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .container {
+    grid-template-columns: minmax(340px, 0.85fr) minmax(460px, 1.15fr);
+  }
+
+  .brandPanel {
+    padding: 42px;
+  }
+
+  .brandWord {
+    font-size: 72px;
+  }
+
+  .formPanel {
+    padding: 40px;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .bootScreen {
+    min-height: 100dvh;
+    padding: 18px;
+
+    &::after {
+      inset: 10px;
+    }
+  }
+
+  .bootStage {
+    width: min(350px, 92vw);
+  }
+
+  .bootCorner {
+    width: 36px;
+    height: 36px;
+  }
+
+  .bootTelemetry {
+    display: none;
+  }
+
+  .bootRingOuter {
+    width: 82%;
+    height: 82%;
+  }
+
+  .bootRingInner {
+    width: 67%;
+    height: 67%;
+  }
+
+  .bootCore {
+    width: 218px;
+    min-height: 262px;
+    padding: 24px 20px 20px;
+  }
+
+  .bootLogoShell {
+    width: 82px;
+    height: 82px;
+  }
+
+  .bootLogo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .bootTitle {
+    font-size: 30px;
+  }
+
+  .bootSignalTop,
+  .bootSignalBottom {
+    left: 25%;
+    width: 50%;
+  }
+
+  .bootSignalTop {
+    top: 9%;
+  }
+
+  .bootSignalBottom {
+    bottom: 9%;
+  }
+
+  .bootSignalLeft,
+  .bootSignalRight {
+    top: 25%;
+    height: 50%;
+  }
+
+  .bootSignalLeft {
+    left: 9%;
+  }
+
+  .bootSignalRight {
+    right: 9%;
+  }
+
+  .container {
+    display: block;
+  }
+
+  .brandPanel {
+    display: none;
+  }
+
+  .formPanel {
+    min-height: 100vh;
+    padding: 28px 18px;
+  }
+
+  .formPanel::before {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .formContent {
+    gap: 18px;
+  }
+
+  .loginCard {
+    padding: 22px 18px;
+  }
+
+  .title {
+    font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bootScreen::before,
+  .bootStage,
+  .bootCorner,
+  .bootRingOuter,
+  .bootRingInner,
+  .bootSignal > span,
+  .bootLogoShell::before,
+  .bootLogoShell::after,
+  .bootLogo,
+  .bootLoader span,
+  .bootStatusDot {
+    animation: none;
+  }
+}

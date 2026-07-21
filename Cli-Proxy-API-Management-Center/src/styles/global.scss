@@ -1,0 +1,57 @@
+/**
+ * 本文件负责 MYPCA 管理中心的全局样式入口。
+ * 具体实现：
+ * 1. 按顺序加载重置、主题、通用组件和主布局样式。
+ * 2. 统一中英文界面的系统字体、滚动条、选中文本颜色和主题切换行为。
+ * 3. 管理弹窗打开时的页面滚动锁定，避免底层内容误滚动。
+ */
+
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+@use './reset.scss';
+@use './themes.scss';
+@use './components.scss';
+@use './layout.scss';
+
+body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: Inter, 'Segoe UI', 'Microsoft YaHei UI', 'Microsoft YaHei', Arial, sans-serif;
+  letter-spacing: 0;
+  transition:
+    background-color $transition-normal,
+    color $transition-normal;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary-color) 28%, transparent);
+  color: var(--text-primary);
+}
+
+html.modal-open,
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open .content {
+  overflow: hidden;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: $radius-full;
+
+  &:hover {
+    background: var(--border-hover);
+  }
+}

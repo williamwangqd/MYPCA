@@ -1,0 +1,14 @@
+<!--
+  本文件定义 MYPCA 的统一品牌 Logo。
+  图形以字母 M 为主体，四个彩色节点代表多账户、多模型和多协议连接，中间折线表示代理路由与流量调度。
+  Logo 使用纯色和清晰描边，适配登录页、侧边栏、系统信息页及浏览器图标的小尺寸显示。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="MYPCA">
+  <rect x="5" y="5" width="118" height="118" rx="18" fill="#0b1016" stroke="#2c3b49" stroke-width="4"/>
+  <path d="M27 89V39L48 64L64 44L80 64L101 39V89" fill="none" stroke="#f4f8fb" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M27 101H101" fill="none" stroke="#263441" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="27" cy="39" r="7" fill="#35d6be"/>
+  <circle cx="48" cy="64" r="6" fill="#5ca9ff"/>
+  <circle cx="80" cy="64" r="6" fill="#ff7a75"/>
+  <circle cx="101" cy="39" r="7" fill="#ffc857"/>
+</svg>
